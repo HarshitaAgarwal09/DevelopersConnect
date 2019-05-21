@@ -3,6 +3,8 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const passport = require("passport");
 
+const validateProfileInput = require("../../validation/profile");
+
 const Profile = require("../../models/Profile");
 const User = require("../../models/User");
 
@@ -20,6 +22,7 @@ router.get(
   (req, res) => {
     const errors = {};
     Profile.findOne({ user: req.user.id })
+      .populate("user", ["name", "avatar"])
       .then(profile => {
         if (!profile) {
           errors.noprofile = "There is no profile for the user";
@@ -38,6 +41,11 @@ router.post(
   "/",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
+    const { errors, isValid } = validateProfileInput(req.body);
+    if (!isValid) {
+      return res.status(400).json(errors);
+    }
+
     const profileFields = {};
     profileFields.user = req.user.id;
     if (req.body.handle) profileFields.handle = req.body.handle;
@@ -57,6 +65,7 @@ router.post(
     if (req.body.facebook) profileFields.social.facebook = req.body.facebook;
     if (req.body.linkedin) profileFields.social.linkedin = req.body.linkedin;
     if (req.body.instagram) profileFields.social.instagram = req.body.instagram;
+
     Profile.findOne({ user: req.user.id }).then(profile => {
       if (profile) {
         //Update Profile
@@ -64,9 +73,20 @@ router.post(
           { user: req.user.id },
           { $set: profileFields },
           { new: true }
-        );
+        ).then(profile => res.json(profile));
       } else {
         //Create Profile
+
+        // Check if handle exists
+        Profile.findOne({ handle: profileFields.handle }).then(profile => {
+          if (profile) {
+            errors.handle = "That handle already exists";
+            res.status(400).json(errors);
+          }
+
+          // Save Profile
+          new Profile(profileFields).save().then(profile => res.json(profile));
+        });
       }
     });
   }

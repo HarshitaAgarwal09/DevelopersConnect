@@ -22,7 +22,6 @@ class Navbar extends Component {
               <ul className="navbar-nav mr-auto">
                 <li className="nav-item">
                   <a className="nav-link" href="profiles.html">
-                    {" "}
                     Developers
                   </a>
                 </li>

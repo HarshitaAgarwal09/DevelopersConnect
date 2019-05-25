@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 class Login extends Component {
   constructor() {
@@ -15,13 +16,15 @@ class Login extends Component {
 
   onSubmit(e) {
     e.preventDefault();
-
     const user = {
       email: this.state.email,
       password: this.state.password
     };
-
-    //console.log(user);
+    axios
+      .post("/api/users/login", user)
+      .then(res => console.log(res.data))
+      .catch(err => this.setState({ errors: err.response.data }));
+    console.log(this.state.errors);
   }
 
   onChange(e) {
@@ -46,6 +49,12 @@ class Login extends Component {
                     placeholder="Enter your Email Address"
                     onChange={this.onChange}
                   />
+                  {this.state.errors.email ? (
+                    <p className="text-danger">
+                      <i className="fas fa-exclamation-triangle"> </i>
+                      {this.state.errors.email}
+                    </p>
+                  ) : null}
                   <label>Password:</label>
 
                   <input
@@ -56,6 +65,12 @@ class Login extends Component {
                     placeholder="Enter your password"
                     onChange={this.onChange}
                   />
+                  {this.state.errors.password ? (
+                    <p className="text-danger">
+                      <i className="fas fa-exclamation-triangle"> </i>
+                      {this.state.errors.password}
+                    </p>
+                  ) : null}
                   <button type="submit" className="btn btn-success">
                     Login
                   </button>

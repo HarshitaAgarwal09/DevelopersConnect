@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 class Register extends Component {
   constructor() {
@@ -17,13 +18,17 @@ class Register extends Component {
 
   onSubmit(e) {
     e.preventDefault();
-
     const newUser = {
       name: this.state.name,
       email: this.state.email,
       password: this.state.password,
       password2: this.state.password2
     };
+    axios
+      .post("/api/users/register", newUser)
+      .then(res => console.log(res.data))
+      .catch(err => this.setState({ errors: err.response.data }));
+    console.log(this.state.errors);
   }
 
   onChange(e) {
@@ -47,6 +52,12 @@ class Register extends Component {
                     placeholder="Enter your Name"
                     onChange={this.onChange}
                   />
+                  {this.state.errors.name ? (
+                    <p className="text-danger">
+                      <i className="fas fa-exclamation-triangle"> </i>
+                      {this.state.errors.name}
+                    </p>
+                  ) : null}
                   <label>Email:</label>
                   <input
                     className="form-control mb-3"
@@ -56,8 +67,13 @@ class Register extends Component {
                     placeholder="Enter your Email Address"
                     onChange={this.onChange}
                   />
+                  {this.state.errors.email ? (
+                    <p className="text-danger">
+                      <i className="fas fa-exclamation-triangle"> </i>
+                      {this.state.errors.email}
+                    </p>
+                  ) : null}
                   <label>Password:</label>
-
                   <input
                     className="form-control mb-3"
                     type="password"
@@ -66,16 +82,27 @@ class Register extends Component {
                     value={this.state.password}
                     onChange={this.onChange}
                   />
+                  {this.state.errors.password ? (
+                    <p className="text-danger">
+                      <i className="fas fa-exclamation-triangle"> </i>
+                      {this.state.errors.password}
+                    </p>
+                  ) : null}
                   <label>Confirm Password:</label>
-
                   <input
                     className="form-control mb-3"
                     type="password"
                     name="password2"
-                    value={this.state.password}
+                    value={this.state.password2}
                     placeholder="Confirm your password"
                     onChange={this.onChange}
                   />
+                  {this.state.errors.password2 ? (
+                    <p className="text-danger">
+                      <i className="fas fa-exclamation-triangle"> </i>
+                      {this.state.errors.password2}
+                    </p>
+                  ) : null}
                   <button type="submit" className="btn btn-success">
                     Register
                   </button>

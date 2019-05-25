@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "./App.css";
-
 import { BrowserRouter, Route } from "react-router-dom";
 
 import Navbar from "./components/layout/Navbar";
@@ -18,7 +17,7 @@ class App extends Component {
           <Route exact path="/" component={Landing} />
           <Route path="/register" component={Register} />
           <Route path="/login" component={Login} />
-          <Footer />
+          {/*<Footer />*/}
         </div>
       </BrowserRouter>
     );

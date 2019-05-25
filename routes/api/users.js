@@ -18,14 +18,14 @@ const User = require("../../models/User");
 //@access Public
 router.get("/test", (req, res) => res.json({ msg: "users works" }));
 
-//@route GET api/users/register
+//@route POST api/users/register
 //@desc registration
 //@access Public
 router.post("/register", (req, res) => {
   const { errors, isValid } = validateRegisterInput(req.body);
 
   if (!isValid) {
-    return res.status(404).json(errors);
+    return res.status(400).json(errors);
   }
 
   User.findOne({ email: req.body.email }).then(user => {
@@ -60,7 +60,7 @@ router.post("/register", (req, res) => {
   });
 });
 
-//@route GET api/users/login
+//@route POST api/users/login
 //@desc Login User / Returning JWT Token
 //@access Public
 router.post("/login", (req, res) => {

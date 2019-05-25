@@ -13,15 +13,6 @@ const Profile = require("../../models/Profile");
 //@access Public
 router.get("/test", (req, res) => res.json({ msg: "posts works" }));
 
-//@route GET api/posts
-//@desc Get posts route
-//@access Public
-router.get("/", (req, res) => {
-  Post.find()
-    .sort({ date: -1 })
-    .then(posts => res.json(posts))
-    .catch(err => res.status(404));
-});
 
 //@route GET api/posts/:id
 //@desc get post  by id

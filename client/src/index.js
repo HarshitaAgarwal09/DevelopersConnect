@@ -5,17 +5,7 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
 import { Provider } from "react-redux";
-import { createStore, combineReducers } from "redux";
-
-import authReducer from "./reducers/authReducer";
-import errorReducer from "./reducers/errorReducer";
-
-const reducer = combineReducers({
-  auth: authReducer,
-  errors: errorReducer
-});
-
-const store = createStore(reducer);
+import store from "./store";
 
 ReactDOM.render(
   <Provider store={store}>

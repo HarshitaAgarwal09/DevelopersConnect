@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { connect } from "react-redux";
+import { loginUser } from "../../actions/authActions";
 
 class Login extends Component {
   constructor() {
@@ -20,11 +22,17 @@ class Login extends Component {
       email: this.state.email,
       password: this.state.password
     };
-    axios
-      .post("/api/users/login", user)
-      .then(res => console.log(res.data))
-      .catch(err => this.setState({ errors: err.response.data }));
-    console.log(this.state.errors);
+    console.log(user);
+    this.props.loginUser(user, this.props.history);
+    console.log(this.props.errors);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+    } else {
+      this.setState({ errors: {} });
+    }
   }
 
   onChange(e) {
@@ -83,4 +91,13 @@ class Login extends Component {
     );
   }
 }
-export default Login;
+
+const mapStateToProps = state => ({
+  auth: state.auth,
+  errors: state.errors
+});
+
+export default connect(
+  mapStateToProps,
+  { loginUser }
+)(Login);

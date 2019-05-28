@@ -77,13 +77,11 @@ router.post("/login", (req, res) => {
       errors.email = "User not found";
       return res.status(404).json(errors);
     }
-    //Password cheking
+    //Password checking
     bcrypt.compare(password, user.password).then(isMatch => {
       if (isMatch) {
-        // User Matched
-        //JWT Payload
+        // User Matched  //JWT Payload
         const payload = { id: user.id, name: user.name, avatar: user.avatar };
-
         // Sign Token
         jwt.sign(
           payload,
@@ -98,7 +96,7 @@ router.post("/login", (req, res) => {
         );
       } else {
         errors.password = "Password Incorrect";
-        return res.status(400).json(errors);
+        return res.status(404).json(errors);
       }
     });
   });

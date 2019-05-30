@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import axios from "axios";
 import { connect } from "react-redux";
 import { loginUser } from "../../actions/authActions";
 
@@ -22,16 +21,21 @@ class Login extends Component {
       email: this.state.email,
       password: this.state.password
     };
-    console.log(user);
-    this.props.loginUser(user, this.props.history);
-    console.log(this.props.errors);
+    this.props.loginUser(user);
+  }
+
+  componentDidMount() {
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.push("/dashboard");
+    }
   }
 
   componentWillReceiveProps(nextProps) {
+    if (nextProps.auth.isAuthenticated) {
+      this.props.history.push("/dashboard");
+    }
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
-    } else {
-      this.setState({ errors: {} });
     }
   }
 

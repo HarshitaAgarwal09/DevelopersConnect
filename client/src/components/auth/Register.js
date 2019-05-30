@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import axios from "axios";
 import { connect } from "react-redux";
 import { registerUser } from "../../actions/authActions";
 
@@ -27,6 +26,12 @@ class Register extends Component {
       password2: this.state.password2
     };
     this.props.registerUser(newUser, this.props.history);
+  }
+
+  componentDidMount() {
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.push("/dashboard");
+    }
   }
 
   componentWillReceiveProps(nextProps) {

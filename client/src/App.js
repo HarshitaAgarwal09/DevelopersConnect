@@ -3,6 +3,7 @@ import { BrowserRouter, Route } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
 import { setCurrentUser, logoutUser } from "./actions/authActions";
+import { clearCurrentProfile } from "./actions/profileActions";
 
 import store from "./store";
 
@@ -11,6 +12,7 @@ import Navbar from "./components/layout/Navbar";
 import Landing from "./components/layout/Landing";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
+import Dashboard from "./components/dashboard/Dashboard";
 
 import "./App.css";
 
@@ -27,6 +29,8 @@ if (localStorage.jwtToken) {
   if (decoded.exp < currentTime) {
     // Logout user
     store.dispatch(logoutUser());
+    store.dispatch(clearCurrentProfile());
+
     // TODO: Clear current Profile
     // Redirect to login
     window.location.href = "/login";
@@ -43,6 +47,7 @@ class App extends Component {
           <Route exact path="/" component={Landing} />
           <Route path="/register" component={Register} />
           <Route path="/login" component={Login} />
+          <Route path="/dashboard" component={Dashboard} />
           {/*<Footer />*/}
         </div>
       </BrowserRouter>

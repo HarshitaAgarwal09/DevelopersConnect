@@ -3,10 +3,12 @@ import thunk from "redux-thunk";
 
 import authReducer from "./reducers/authReducer";
 import errorReducer from "./reducers/errorReducer";
+import profileReducer from "./reducers/profileReducer";
 
 const reducer = combineReducers({
   auth: authReducer,
-  errors: errorReducer
+  errors: errorReducer,
+  profile: profileReducer
 });
 
 const initialState = {};

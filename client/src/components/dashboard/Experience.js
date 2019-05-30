@@ -33,18 +33,22 @@ class Experience extends Component {
     ));
     return (
       <div>
-        <h4 className="mb-4">Experience Credentials</h4>
-        <table className="table">
-          <thead>
-            <tr>
-              <th>Company</th>
-              <th>Title</th>
-              <th>Years</th>
-              <th />
-            </tr>
-            {experience}
-          </thead>
-        </table>
+        {experience.length != 0 ? (
+          <div>
+            <h4 className="mb-4">Experience Credentials</h4>
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>Company</th>
+                  <th>Title</th>
+                  <th>Years</th>
+                  <th />
+                </tr>
+                {experience}
+              </thead>
+            </table>
+          </div>
+        ) : null}
       </div>
     );
   }

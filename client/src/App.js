@@ -17,6 +17,7 @@ import CreateProfile from "./components/profile/CreateProfile";
 import EditProfile from "./components/profile/EditProfile";
 import AddEducation from "./components/profile/add-credentials/AddEducation";
 import AddExperience from "./components/profile/add-credentials/AddExperience";
+import Profiles from "./components/profiles/Profiles";
 
 import PrivateRoute from "./components/common/PrivateRoute";
 
@@ -53,6 +54,7 @@ class App extends Component {
           <Route exact path="/" component={Landing} />
           <Route path="/register" component={Register} />
           <Route path="/login" component={Login} />
+          <Route path="/profiles" component={Profiles} />
           <Switch>
             <PrivateRoute path="/dashboard" component={Dashboard} />
             <PrivateRoute path="/create-profile" component={CreateProfile} />

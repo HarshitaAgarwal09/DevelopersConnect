@@ -33,7 +33,7 @@ class Experience extends Component {
     ));
     return (
       <div>
-        {experience.length != 0 ? (
+        {experience.length !== 0 ? (
           <div>
             <h4 className="mb-4">Experience Credentials</h4>
             <table className="table">

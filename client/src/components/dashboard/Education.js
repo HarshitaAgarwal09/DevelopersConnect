@@ -33,7 +33,7 @@ class Education extends Component {
     ));
     return (
       <div>
-        {education.length != 0 ? (
+        {education.length !== 0 ? (
           <div>
             <h4 className="mb-4">Education Credentials</h4>
             <table className="table">

@@ -13,11 +13,12 @@ import Landing from "./components/layout/Landing";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import Dashboard from "./components/dashboard/Dashboard";
-import CreateProfile from "./components/profile/CreateProfile";
-import EditProfile from "./components/profile/EditProfile";
-import AddEducation from "./components/profile/add-credentials/AddEducation";
-import AddExperience from "./components/profile/add-credentials/AddExperience";
+import CreateProfile from "./components/create-profile/CreateProfile";
+import EditProfile from "./components/create-profile/EditProfile";
+import AddEducation from "./components/create-profile/add-credentials/AddEducation";
+import AddExperience from "./components/create-profile/add-credentials/AddExperience";
 import Profiles from "./components/profiles/Profiles";
+import Profile from "./components/profile/Profile";
 
 import PrivateRoute from "./components/common/PrivateRoute";
 
@@ -55,6 +56,7 @@ class App extends Component {
           <Route path="/register" component={Register} />
           <Route path="/login" component={Login} />
           <Route path="/profiles" component={Profiles} />
+          <Route path="/profile/:handle" component={Profile} />
           <Switch>
             <PrivateRoute path="/dashboard" component={Dashboard} />
             <PrivateRoute path="/create-profile" component={CreateProfile} />
